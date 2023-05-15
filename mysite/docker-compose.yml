@@ -1,0 +1,48 @@
+version: '3.11'
+services:
+   web:
+       build: .
+       command: python manage.py runserver localhost:8000
+       ports:
+           - 8000:8000
+       depends_on:
+         - db
+
+#       depends_on:
+#         - db
+#         - redis
+#         - celery
+
+
+   db:
+       restart: always                             # настройка из Docker Hub
+       image: postgres:latest
+       container_name: db_postgres   # имя контейнера
+       volumes:
+         - ./data/postgres:/var/lib/postgresql/data  # тома, это не закид. на Git, это локально
+       env_file:
+         - configs/db.env
+       ports:
+         - "5432:5432"
+
+#   redis:
+#       image: "redis:alpine"
+#
+#       command: redis-server --requirepass sOmE_sEcUrE_pAsS
+#       ports:
+#         - "6379:6379"
+#       volumes:
+#         - ./data/redis/redis-data:/lib/redis
+#       #- ./data/redis/redis.conf:/usr/local/etc/redis/redis.conf
+#       environment:
+#         - REDIS_REPLICATION_MODE=master
+
+
+#   celery:
+#       build: .
+#       container_name: celery
+#       environment:
+#         - CELERY_BROKER_URL=redis
+#       command: celery -A projectname worker -l info
+#       depends_on:
+#         - redis
