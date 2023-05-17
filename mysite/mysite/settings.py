@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'news',
     'blog',
     'users',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -81,10 +82,11 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'myproject',
         'USER': 'myproject',
         'PASSWORD': '2004',
+        'HOST': 'db'
 #        'PORT': '5432'
     }
 }

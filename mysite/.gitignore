@@ -2,6 +2,4 @@
 /venv/
 /.idea
 __data__/
-
-
 /data/postgres/
