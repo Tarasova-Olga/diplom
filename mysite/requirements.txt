@@ -5,4 +5,7 @@ postgres==4.0
 django-crispy-forms==2.0
 Pillow==9.5.0
 signals==0.0.2
-# celery[redis]==5.2.7
+crispy-bootstrap4==2022.1
+celery[redis]==5.2.7
+Deprecated==1.2.13
+wrapt==1.15.0
