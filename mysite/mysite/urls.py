@@ -18,13 +18,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from publisher.views import view_post
-
+from main.views import home, verify
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mainApp.urls')),
     path('news/', include('news.urls')),
-#    path('verify/<slug>', verify, name='verify'),
+    path('home/', home, name='home'),
+    path('verify/<slug>', verify, name='verify'),
     path('<slug>', view_post, name='view_post'),
 ]

@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 import uuid
 from django.db.models import signals
 from django.core.mail import send_mail
-#from main.tasks import send_verification_email
+from main.tasks import send_verification_email
 from django.urls import reverse
 
 class UserAccountManager(BaseUserManager):
@@ -61,14 +61,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     def user_post_save(sender, instance, signal, *args, **kwargs):
         if not instance.is_verified:
             # Send verification email
-            send_mail(
-                'Verify your WaveHouse account',
-                'Follow this link to verify your account: '
-                'http://localhost:8000%s' % reverse('verify', kwargs={'uuid': str(instance.verification_uuid)}),
-                'surf@mail.dev',
-                [instance.email],
-                fail_silently=False,
-            )
+            send_verification_email.delay(instance.pk)
+# метод .delay объекта задачи. Это означает, что мы отправляем
+# задание на Celery, и мы не ожидаем результата.
 
     signals.post_save.connect(user_post_save, sender=User)
 

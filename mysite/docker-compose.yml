@@ -25,24 +25,25 @@ services:
        ports:
          - "5432:5432"
 
-#   redis:
-#       image: "redis:alpine"
-#
-#       command: redis-server --requirepass sOmE_sEcUrE_pAsS
-#       ports:
-#         - "6379:6379"
-#       volumes:
-#         - ./data/redis/redis-data:/lib/redis
-#       #- ./data/redis/redis.conf:/usr/local/etc/redis/redis.conf
-#       environment:
-#         - REDIS_REPLICATION_MODE=master
+
+   redis:
+       image: "redis:alpine"
+
+       command: redis-server --requirepass sOmE_sEcUrE_pAsS
+       ports:
+         - "6379:6379"
+       volumes:
+         - ./data/redis/redis-data:/lib/redis
+       #- ./data/redis/redis.conf:/usr/local/etc/redis/redis.conf
+       environment:
+         - REDIS_REPLICATION_MODE=master
 
 
-#   celery:
-#       build: .
-#       container_name: celery
-#       environment:
-#         - CELERY_BROKER_URL=redis
-#       command: celery -A projectname worker -l info
-#       depends_on:
-#         - redis
+   celery:
+       build: .
+       container_name: celery
+       environment:
+         - CELERY_BROKER_URL=redis
+       command: celery -A mysite worker -l info
+       depends_on:
+         - redis
