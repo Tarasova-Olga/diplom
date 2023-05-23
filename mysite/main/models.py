@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 import uuid
 from django.db.models import signals
 from django.core.mail import send_mail
-from main.tasks import send_verification_email
+from .tasks import send_verification_email
 from django.urls import reverse
 
 class UserAccountManager(BaseUserManager):

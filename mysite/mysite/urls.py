@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mainApp.urls')),
     path('news/', include('news.urls')),
-    path('home/', home, name='home'),
+    path('', home, name='home'),
     path('verify/<slug>', verify, name='verify'),
     path('<slug>', view_post, name='view_post'),
 ]
